@@ -1,6 +1,9 @@
 @extends('layout.app')
 @section('content')
 <div class="container">
+    <!-- warning message from javascript -->
+<div class="col-md-6 offset-md-2" id="alert">            
+</div>  
 <!-- bootstrap model -->
 <div class="modal  " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display:hidden">
         <div class="modal-dialog" role="document">
@@ -32,12 +35,15 @@
             </div>
         </div>
 </div>
+
+
  @if(Session::get('user')->IsAdmin!='1')
 <button type="button" class="btn btn-primary col-md-2 offset-md-8" data-toggle="modal" data-target="#exampleModal3">
   Add Activity
 </button>
 @endif
 <!-- Modal -->
+
 <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -80,7 +86,7 @@
   </div>
 </div>
 <!-- bootstrap model -->
-    <div class="row">
+    <div class="row">        
        <div class="col-md-8 offset-md-2 mb-5">
         <div class="card mt-3">
          <div class="card-header">
@@ -208,9 +214,13 @@
                 dataType:'json',
                 success:function(data){
                     console.log(data.error);
-                    alert(data.error);
+                    if(data.success){
+                        $('#alert').append('<div class="alert alert-success">'+data.success+'</div>');
+                    }else{
+                        $('#alert').append('<div class="alert alert-danger">'+data.error+'</div>');
+                    }
                     $('#exampleModal3').hide();
-                    location.reload();
+                     location.reload();
                 }
             });
         });
