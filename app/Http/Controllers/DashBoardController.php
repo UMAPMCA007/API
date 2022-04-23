@@ -56,17 +56,17 @@ class DashBoardController extends Controller
             // last add date
             $last_add_date=date('Y-m-d',strtotime($last_add));
             // if last add date is grater than current date
-            $activity=Activity::where('user_id',$id)->where('updated_at',$last_add)->get();
-            if($last_add_date>$current_date)
+            $activity=Activity::where('user_id',$id)->get();
+            if($last_add_date<$current_date)
             {
-                if($activity->count()<2)
+                if(count($activity)<12)
                 {
                     $activity=new Activity();
                     $activity->user_id=$id;
                     $activity->activity_type=$request->activity_type;
                     $activity->activity_name=$request->activity_name;
                     $activity->save();
-                    return response()->json(['activity'=>$activity]);
+                    return response()->json(['success'=>'activity added successfully']);
                     
                 }
                 else
