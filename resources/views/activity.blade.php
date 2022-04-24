@@ -213,14 +213,15 @@
                 },
                 dataType:'json',
                 success:function(data){
-                    console.log(data.error);
+                    console.log(data);
                     if(data.success){
                         $('#alert').append('<div class="alert alert-success">'+data.success+'</div>');
                     }else{
                         $('#alert').append('<div class="alert alert-danger">'+data.error+'</div>');
                     }
                     $('#exampleModal3').hide();
-                     location.reload();
+                    location.reload();
+                     
                 }
             });
         });
